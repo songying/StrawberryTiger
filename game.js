@@ -367,23 +367,44 @@ var isRotated = false;
 var container = document.getElementById('game-container');
 var rotateBtn = document.getElementById('rotate-btn');
 
+function isTouchDevice() {
+    return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+}
+
 function resizeCanvas() {
     var cw = window.innerWidth;
     var ch = window.innerHeight;
 
+    // Show/hide rotate button: only on touch devices in portrait
+    if (isTouchDevice() && ch > cw) {
+        rotateBtn.style.display = 'flex';
+    } else {
+        rotateBtn.style.display = 'none';
+        // Auto-reset rotation when going landscape or on PC
+        if (isRotated) {
+            isRotated = false;
+        }
+    }
+
     if (isRotated) {
-        // Keep container at full viewport size, rotate it 90deg in place
-        container.style.width = cw + 'px';
-        container.style.height = ch + 'px';
+        // Portrait phone, user wants landscape view
+        // Size container to ch x cw (swapped), position fixed at center
+        container.style.position = 'fixed';
+        container.style.width = ch + 'px';
+        container.style.height = cw + 'px';
+        container.style.left = ((cw - ch) / 2) + 'px';
+        container.style.top = ((ch - cw) / 2) + 'px';
         container.style.transform = 'rotate(90deg)';
-        container.style.transformOrigin = 'center center';
-        // After rotation, the visible area is ch wide and cw tall
+        // Canvas scales to fit the swapped dimensions (ch wide, cw tall)
         var scale = Math.min(ch / CANVAS_WIDTH, cw / CANVAS_HEIGHT);
         canvas.style.width = Math.floor(CANVAS_WIDTH * scale) + 'px';
         canvas.style.height = Math.floor(CANVAS_HEIGHT * scale) + 'px';
     } else {
+        container.style.position = '';
         container.style.width = '100%';
         container.style.height = '100%';
+        container.style.left = '';
+        container.style.top = '';
         container.style.transform = 'none';
         var scale = Math.min(cw / CANVAS_WIDTH, ch / CANVAS_HEIGHT);
         canvas.style.width = Math.floor(CANVAS_WIDTH * scale) + 'px';

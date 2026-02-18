@@ -51,12 +51,6 @@ canvas {
     align-items: center;
 }
 
-@media (pointer: coarse) {
-    #rotate-btn {
-        display: flex;
-    }
-}
-
 #rotate-btn:active {
     background: #d0d0d0;
 }
