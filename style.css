@@ -29,25 +29,27 @@ canvas {
 
 #rotate-btn {
     position: fixed;
-    bottom: 12px;
-    right: 12px;
+    bottom: 10px;
+    right: 10px;
     z-index: 1000;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    background: rgba(0, 0, 0, 0.4);
-    color: #fff;
-    font-size: 24px;
-    line-height: 40px;
-    text-align: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    border: none;
+    background: #ffffff;
     cursor: pointer;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
-    opacity: 0.6;
-    transition: opacity 0.2s;
+    padding: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 #rotate-btn:active {
-    opacity: 1;
+    background: #e0e0e0;
+}
+
+#rotate-btn svg {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
