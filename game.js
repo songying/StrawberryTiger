@@ -372,12 +372,12 @@ function resizeCanvas() {
     var ch = window.innerHeight;
 
     if (isRotated) {
-        // When rotated, swap available dimensions
-        container.style.width = ch + 'px';
-        container.style.height = cw + 'px';
+        // Keep container at full viewport size, rotate it 90deg in place
+        container.style.width = cw + 'px';
+        container.style.height = ch + 'px';
         container.style.transform = 'rotate(90deg)';
         container.style.transformOrigin = 'center center';
-        // Scale based on swapped dimensions
+        // After rotation, the visible area is ch wide and cw tall
         var scale = Math.min(ch / CANVAS_WIDTH, cw / CANVAS_HEIGHT);
         canvas.style.width = Math.floor(CANVAS_WIDTH * scale) + 'px';
         canvas.style.height = Math.floor(CANVAS_HEIGHT * scale) + 'px';
