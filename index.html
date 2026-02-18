@@ -13,15 +13,8 @@
         <canvas id="gameCanvas" width="800" height="450"></canvas>
     </div>
     <button id="rotate-btn" aria-label="Rotate screen">
-        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Vertical rectangle (portrait) -->
-            <rect x="2" y="4" width="16" height="22" rx="2" stroke="#333" stroke-width="2.5" fill="none"/>
-            <!-- Horizontal rectangle (landscape), overlapping at corner -->
-            <rect x="12" y="14" width="22" height="16" rx="2" stroke="#333" stroke-width="2.5" fill="#fff"/>
-            <!-- Arrow indicating rotation -->
-            <path d="M22 8 L26 4 L26 12 Z" fill="#333"/>
-            <path d="M26 8 Q30 8 30 14" stroke="#333" stroke-width="2" fill="none"/>
-        </svg>
+        <span class="rot-portrait"></span>
+        <span class="rot-landscape"></span>
     </button>
     <script src="game.js"></script>
 </body>
