@@ -360,17 +360,51 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Resize canvas to fill viewport properly (fixes iOS black screen)
+// ============================================================
+// MANUAL ROTATION & RESIZE
+// ============================================================
+var isRotated = false;
+var container = document.getElementById('game-container');
+var rotateBtn = document.getElementById('rotate-btn');
+
 function resizeCanvas() {
     var cw = window.innerWidth;
     var ch = window.innerHeight;
-    var scale = Math.min(cw / CANVAS_WIDTH, ch / CANVAS_HEIGHT);
-    canvas.style.width = Math.floor(CANVAS_WIDTH * scale) + 'px';
-    canvas.style.height = Math.floor(CANVAS_HEIGHT * scale) + 'px';
+
+    if (isRotated) {
+        // When rotated, swap available dimensions
+        container.style.width = ch + 'px';
+        container.style.height = cw + 'px';
+        container.style.transform = 'rotate(90deg)';
+        container.style.transformOrigin = 'center center';
+        // Scale based on swapped dimensions
+        var scale = Math.min(ch / CANVAS_WIDTH, cw / CANVAS_HEIGHT);
+        canvas.style.width = Math.floor(CANVAS_WIDTH * scale) + 'px';
+        canvas.style.height = Math.floor(CANVAS_HEIGHT * scale) + 'px';
+    } else {
+        container.style.width = '100%';
+        container.style.height = '100%';
+        container.style.transform = 'none';
+        var scale = Math.min(cw / CANVAS_WIDTH, ch / CANVAS_HEIGHT);
+        canvas.style.width = Math.floor(CANVAS_WIDTH * scale) + 'px';
+        canvas.style.height = Math.floor(CANVAS_HEIGHT * scale) + 'px';
+    }
 }
+
+rotateBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    isRotated = !isRotated;
+    resizeCanvas();
+});
+rotateBtn.addEventListener('touchstart', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    isRotated = !isRotated;
+    resizeCanvas();
+}, { passive: false });
+
 window.addEventListener('resize', resizeCanvas);
 window.addEventListener('orientationchange', function() {
-    // iOS delays reporting new dimensions after orientation change
     setTimeout(resizeCanvas, 100);
     setTimeout(resizeCanvas, 300);
 });

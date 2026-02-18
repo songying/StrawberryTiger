@@ -26,3 +26,28 @@ html, body {
 canvas {
     display: block;
 }
+
+#rotate-btn {
+    position: fixed;
+    bottom: 12px;
+    right: 12px;
+    z-index: 1000;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    font-size: 24px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+#rotate-btn:active {
+    opacity: 1;
+}
