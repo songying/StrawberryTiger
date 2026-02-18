@@ -360,10 +360,17 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Try to lock orientation
-if (screen.orientation && screen.orientation.lock) {
-    screen.orientation.lock('landscape').catch(function() {});
+// Resize canvas to fill viewport properly (fixes iOS black screen)
+function resizeCanvas() {
+    var container = document.getElementById('game-container');
+    var cw = container.clientWidth || window.innerWidth;
+    var ch = container.clientHeight || window.innerHeight;
+    var scale = Math.min(cw / CANVAS_WIDTH, ch / CANVAS_HEIGHT);
+    canvas.style.width = Math.floor(CANVAS_WIDTH * scale) + 'px';
+    canvas.style.height = Math.floor(CANVAS_HEIGHT * scale) + 'px';
 }
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
 // ============================================================
 // UPDATE FUNCTIONS
