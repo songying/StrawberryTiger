@@ -387,15 +387,18 @@ function resizeCanvas() {
     }
 
     if (isRotated) {
-        // Portrait phone, user wants landscape view
-        // Size container to ch x cw (swapped), position fixed at center
+        // Portrait phone -> simulate landscape
+        // Use the full viewport as a landscape canvas area
+        // Simply rotate container at viewport center using translate + rotate
         container.style.position = 'fixed';
+        container.style.left = '0';
+        container.style.top = '0';
         container.style.width = ch + 'px';
         container.style.height = cw + 'px';
-        container.style.left = ((cw - ch) / 2) + 'px';
-        container.style.top = ((ch - cw) / 2) + 'px';
-        container.style.transform = 'rotate(90deg)';
-        // Canvas scales to fit the swapped dimensions (ch wide, cw tall)
+        container.style.transformOrigin = '0 0';
+        // Move to top-right corner, rotate -90deg to swing it down into place
+        container.style.transform = 'translate(' + cw + 'px, 0) rotate(90deg)';
+        // Canvas scales to fit the landscape area (ch wide, cw tall)
         var scale = Math.min(ch / CANVAS_WIDTH, cw / CANVAS_HEIGHT);
         canvas.style.width = Math.floor(CANVAS_WIDTH * scale) + 'px';
         canvas.style.height = Math.floor(CANVAS_HEIGHT * scale) + 'px';
@@ -406,6 +409,7 @@ function resizeCanvas() {
         container.style.left = '';
         container.style.top = '';
         container.style.transform = 'none';
+        container.style.transformOrigin = '';
         var scale = Math.min(cw / CANVAS_WIDTH, ch / CANVAS_HEIGHT);
         canvas.style.width = Math.floor(CANVAS_WIDTH * scale) + 'px';
         canvas.style.height = Math.floor(CANVAS_HEIGHT * scale) + 'px';
