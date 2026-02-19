@@ -119,122 +119,23 @@ function playGameOverSound() {
     } catch (e) {}
 }
 
-// Background music state
-var bgmPlaying = false;
-var bgmNodes = [];
-var bgmInterval = null;
+// Background music (MP3)
+var bgmAudio = new Audio('Pixel_Pulse_Panic.mp3');
+bgmAudio.loop = true;
+bgmAudio.volume = 0.4;
 
 function startBGM() {
-    if (bgmPlaying) return;
-    bgmPlaying = true;
     try {
-        var ac = getAudioCtx();
-
-        // Jungle-style percussion loop using noise bursts
-        var percGain = ac.createGain();
-        percGain.gain.value = 0.06;
-        percGain.connect(ac.destination);
-        bgmNodes.push(percGain);
-
-        // Deep bass drone (tiger growl vibe)
-        var bassOsc = ac.createOscillator();
-        var bassGain = ac.createGain();
-        bassOsc.type = 'sawtooth';
-        bassOsc.frequency.value = 55;
-        bassGain.gain.value = 0.07;
-        var bassFilter = ac.createBiquadFilter();
-        bassFilter.type = 'lowpass';
-        bassFilter.frequency.value = 120;
-        bassOsc.connect(bassFilter);
-        bassFilter.connect(bassGain);
-        bassGain.connect(ac.destination);
-        bassOsc.start();
-        bgmNodes.push(bassOsc, bassGain, bassFilter);
-
-        // Melody pattern - pentatonic scale, jungle feel
-        // E minor pentatonic: E3, G3, A3, B3, D4, E4
-        var melodyNotes = [
-            164.81, 196.00, 220.00, 246.94, 293.66, 329.63,
-            293.66, 246.94, 220.00, 196.00, 164.81, 196.00,
-            220.00, 293.66, 329.63, 293.66
-        ];
-        var beatDuration = 0.22;
-        var loopLength = melodyNotes.length * beatDuration;
-        var noteIndex = 0;
-
-        function scheduleMelodyNote() {
-            if (!bgmPlaying) return;
-            try {
-                var ac2 = getAudioCtx();
-                var osc = ac2.createOscillator();
-                var gain = ac2.createGain();
-                var filter = ac2.createBiquadFilter();
-                osc.type = 'triangle';
-                osc.frequency.value = melodyNotes[noteIndex % melodyNotes.length];
-                filter.type = 'lowpass';
-                filter.frequency.value = 800;
-                osc.connect(filter);
-                filter.connect(gain);
-                gain.connect(ac2.destination);
-                gain.gain.setValueAtTime(0, ac2.currentTime);
-                gain.gain.linearRampToValueAtTime(0.08, ac2.currentTime + 0.02);
-                gain.gain.exponentialRampToValueAtTime(0.001, ac2.currentTime + beatDuration * 0.9);
-                osc.start(ac2.currentTime);
-                osc.stop(ac2.currentTime + beatDuration);
-                noteIndex++;
-            } catch (e) {}
-        }
-
-        // Drum pattern using oscillator clicks
-        var drumIndex = 0;
-        var drumPattern = [1, 0, 1, 0, 1, 0, 1, 1]; // 1 = hit
-
-        function scheduleDrum() {
-            if (!bgmPlaying) return;
-            try {
-                var ac2 = getAudioCtx();
-                if (drumPattern[drumIndex % drumPattern.length]) {
-                    var osc = ac2.createOscillator();
-                    var gain = ac2.createGain();
-                    osc.type = 'square';
-                    osc.frequency.value = 80;
-                    osc.connect(gain);
-                    gain.connect(percGain);
-                    gain.gain.setValueAtTime(0.3, ac2.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ac2.currentTime + 0.08);
-                    osc.start(ac2.currentTime);
-                    osc.stop(ac2.currentTime + 0.08);
-                }
-                drumIndex++;
-            } catch (e) {}
-        }
-
-        // Schedule both melody and drums on the same interval
-        bgmInterval = setInterval(function() {
-            scheduleMelodyNote();
-            scheduleDrum();
-        }, beatDuration * 1000);
-
-        // Play first notes immediately
-        scheduleMelodyNote();
-        scheduleDrum();
-
+        bgmAudio.currentTime = 0;
+        bgmAudio.play().catch(function() {});
     } catch (e) {}
 }
 
 function stopBGM() {
-    bgmPlaying = false;
-    if (bgmInterval) {
-        clearInterval(bgmInterval);
-        bgmInterval = null;
-    }
-    for (var i = 0; i < bgmNodes.length; i++) {
-        try {
-            if (bgmNodes[i].stop) bgmNodes[i].stop();
-            if (bgmNodes[i].disconnect) bgmNodes[i].disconnect();
-        } catch (e) {}
-    }
-    bgmNodes = [];
+    try {
+        bgmAudio.pause();
+        bgmAudio.currentTime = 0;
+    } catch (e) {}
 }
 
 // ============================================================
