@@ -1,0 +1,43 @@
+name: StrawberryTiger
+options:
+  bundleIdPrefix: com.strawberrytiger
+  deploymentTarget:
+    iOS: "15.0"
+  generateEmptyDirectories: true
+  groupSortPosition: top
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    TARGETED_DEVICE_FAMILY: "1,2"
+    IPHONEOS_DEPLOYMENT_TARGET: "15.0"
+  configs:
+    Debug:
+      DEBUG_INFORMATION_FORMAT: "dwarf-with-dsym"
+    Release:
+      DEBUG_INFORMATION_FORMAT: "dwarf-with-dsym"
+      SWIFT_OPTIMIZATION_LEVEL: "-O"
+
+configs:
+  Debug: debug
+  Release: release
+
+targets:
+  StrawberryTiger:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources/StrawberryTiger
+    resources:
+      - path: Sources/StrawberryTiger/Resources/Assets.xcassets
+      - path: Sources/StrawberryTiger/Resources/Pixel_Pulse_Panic.mp3
+    settings:
+      base:
+        INFOPLIST_FILE: Sources/StrawberryTiger/Resources/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.strawberrytiger.game
+        CODE_SIGN_STYLE: Automatic
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        DEVELOPMENT_TEAM: ""
+    scheme:
+      gatherCoverageData: false
