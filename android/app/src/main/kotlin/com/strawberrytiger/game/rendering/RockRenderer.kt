@@ -1,9 +1,9 @@
 package com.strawberrytiger.game.rendering
 
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
+import androidx.core.graphics.toColorInt
 import com.strawberrytiger.game.Rock
 
 class RockRenderer {
@@ -14,7 +14,7 @@ class RockRenderer {
     fun draw(canvas: Canvas, rock: Rock) {
         // Gray polygon body
         paint.style = Paint.Style.FILL
-        paint.color = Color.parseColor("#696969")
+        paint.color = "#696969".toColorInt()
         path.reset()
         path.moveTo(rock.x, rock.y + rock.height)
         path.lineTo(rock.x + 5f, rock.y + 5f)
@@ -25,7 +25,7 @@ class RockRenderer {
         canvas.drawPath(path, paint)
 
         // Highlight
-        paint.color = Color.parseColor("#A9A9A9")
+        paint.color = "#A9A9A9".toColorInt()
         path.reset()
         path.moveTo(rock.x + 10f, rock.y + 5f)
         path.lineTo(rock.x + 15f, rock.y + 1f)

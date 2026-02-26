@@ -84,7 +84,7 @@ enum TigerRenderer {
                 (CGPoint(x: lx + 16, y: ly + 12), CGPoint(x: lx + 14, y: ly + 24), CGPoint(x: lx + 17, y: ly + 36)),
                 (CGPoint(x: lx + 24, y: ly + 11), CGPoint(x: lx + 22, y: ly + 22), CGPoint(x: lx + 25, y: ly + 35)),
                 (CGPoint(x: lx + 32, y: ly + 11), CGPoint(x: lx + 34, y: ly + 22), CGPoint(x: lx + 31, y: ly + 36)),
-                (CGPoint(x: lx + 40, y: ly + 12), CGPoint(x: lx + 42, y: ly + 24), CGPoint(x: lx + 39, y: ly + 35)),
+                (CGPoint(x: lx + 40, y: ly + 12), CGPoint(x: lx + 42, y: ly + 24), CGPoint(x: lx + 39, y: ly + 35))
             ]
             for (start, ctrl, end) in stripes {
                 ctx.beginPath()
@@ -94,7 +94,9 @@ enum TigerRenderer {
             }
 
             // --- Ears ---
-            func drawEllipse(cx: CGFloat, cy: CGFloat, rx: CGFloat, ry: CGFloat, rotation: CGFloat, color: UIColor, startAngle: CGFloat = 0, endAngle: CGFloat = .pi * 2) {
+            func drawEllipse(cx: CGFloat, cy: CGFloat, rx: CGFloat, ry: CGFloat,
+                             rotation: CGFloat, color: UIColor,
+                             startAngle: CGFloat = 0, endAngle: CGFloat = .pi * 2) {
                 ctx.saveGState()
                 ctx.translateBy(x: cx, y: cy)
                 ctx.rotate(by: rotation)
@@ -155,7 +157,7 @@ enum TigerRenderer {
                 (CGPoint(x: lx + 40, y: ly + 6), CGPoint(x: lx + 42, y: ly + 9), CGPoint(x: lx + 44, y: ly + 8)),
                 (CGPoint(x: lx + 38, y: ly + 9), CGPoint(x: lx + 41, y: ly + 12), CGPoint(x: lx + 43, y: ly + 11)),
                 (CGPoint(x: lx + 60, y: ly + 6), CGPoint(x: lx + 58, y: ly + 9), CGPoint(x: lx + 56, y: ly + 8)),
-                (CGPoint(x: lx + 62, y: ly + 9), CGPoint(x: lx + 59, y: ly + 12), CGPoint(x: lx + 57, y: ly + 11)),
+                (CGPoint(x: lx + 62, y: ly + 9), CGPoint(x: lx + 59, y: ly + 12), CGPoint(x: lx + 57, y: ly + 11))
             ]
             for (start, ctrl, end) in faceStripes {
                 ctx.beginPath()
@@ -220,7 +222,7 @@ enum TigerRenderer {
                 (CGPoint(x: lx + 43, y: ly + 19), CGPoint(x: lx + 33, y: ly + 23)),
                 (CGPoint(x: lx + 57, y: ly + 17), CGPoint(x: lx + 68, y: ly + 15)),
                 (CGPoint(x: lx + 57, y: ly + 18), CGPoint(x: lx + 69, y: ly + 19)),
-                (CGPoint(x: lx + 57, y: ly + 19), CGPoint(x: lx + 67, y: ly + 23)),
+                (CGPoint(x: lx + 57, y: ly + 19), CGPoint(x: lx + 67, y: ly + 23))
             ]
             for (from, to) in whiskers {
                 ctx.beginPath()
@@ -240,7 +242,7 @@ enum TigerRenderer {
                     (CGPoint(x: lx + 38, y: ly + 40), CGPoint(x: lx + 38 + legPhase * 6, y: ly + 50)),
                     (CGPoint(x: lx + 44, y: ly + 40), CGPoint(x: lx + 44 - legPhase * 6, y: ly + 50)),
                     (CGPoint(x: lx + 16, y: ly + 40), CGPoint(x: lx + 16 - legPhase * 6, y: ly + 50)),
-                    (CGPoint(x: lx + 22, y: ly + 40), CGPoint(x: lx + 22 + legPhase * 6, y: ly + 50)),
+                    (CGPoint(x: lx + 22, y: ly + 40), CGPoint(x: lx + 22 + legPhase * 6, y: ly + 50))
                 ]
                 for (from, to) in legs {
                     ctx.beginPath()
@@ -253,7 +255,7 @@ enum TigerRenderer {
                     (CGPoint(x: lx + 38, y: ly + 40), CGPoint(x: lx + 42, y: ly + 46)),
                     (CGPoint(x: lx + 44, y: ly + 40), CGPoint(x: lx + 48, y: ly + 46)),
                     (CGPoint(x: lx + 16, y: ly + 40), CGPoint(x: lx + 12, y: ly + 46)),
-                    (CGPoint(x: lx + 22, y: ly + 40), CGPoint(x: lx + 18, y: ly + 46)),
+                    (CGPoint(x: lx + 22, y: ly + 40), CGPoint(x: lx + 18, y: ly + 46))
                 ]
                 for (from, to) in legs {
                     ctx.beginPath()
@@ -266,7 +268,7 @@ enum TigerRenderer {
                     (CGPoint(x: lx + 38, y: ly + 40), CGPoint(x: lx + 38, y: ly + 50)),
                     (CGPoint(x: lx + 44, y: ly + 40), CGPoint(x: lx + 44, y: ly + 50)),
                     (CGPoint(x: lx + 16, y: ly + 40), CGPoint(x: lx + 16, y: ly + 50)),
-                    (CGPoint(x: lx + 22, y: ly + 40), CGPoint(x: lx + 22, y: ly + 50)),
+                    (CGPoint(x: lx + 22, y: ly + 40), CGPoint(x: lx + 22, y: ly + 50))
                 ]
                 for (from, to) in legs {
                     ctx.beginPath()

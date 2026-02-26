@@ -6,6 +6,7 @@ import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.Shader
+import androidx.core.graphics.toColorInt
 import com.strawberrytiger.game.Cloud
 import com.strawberrytiger.game.GameConstants.CANVAS_HEIGHT
 import com.strawberrytiger.game.GameConstants.CANVAS_WIDTH
@@ -17,15 +18,15 @@ class BackgroundRenderer {
         isDither = true
     }
     private val grassPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#4CAF50")
+        color = "#4CAF50".toColorInt()
         style = Paint.Style.FILL
     }
     private val dirtPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#8B4513")
+        color = "#8B4513".toColorInt()
         style = Paint.Style.FILL
     }
     private val grassDetailPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#388E3C")
+        color = "#388E3C".toColorInt()
         style = Paint.Style.STROKE
         strokeWidth = 1f
     }
@@ -41,8 +42,8 @@ class BackgroundRenderer {
         if (skyGradient == null) {
             skyGradient = LinearGradient(
                 0f, 0f, 0f, GROUND_Y,
-                Color.parseColor("#87CEEB"),
-                Color.parseColor("#E0F0FF"),
+                "#87CEEB".toColorInt(),
+                "#E0F0FF".toColorInt(),
                 Shader.TileMode.CLAMP
             )
         }

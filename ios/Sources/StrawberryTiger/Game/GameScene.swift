@@ -538,11 +538,9 @@ final class GameScene: SKScene {
         }
 
         // Remove collected
-        for i in stride(from: strawberries.count - 1, through: 0, by: -1) {
-            if strawberries[i].collected {
-                strawberries[i].node.removeFromParent()
-                strawberries.remove(at: i)
-            }
+        for i in stride(from: strawberries.count - 1, through: 0, by: -1) where strawberries[i].collected {
+            strawberries[i].node.removeFromParent()
+            strawberries.remove(at: i)
         }
 
         // Rock collisions

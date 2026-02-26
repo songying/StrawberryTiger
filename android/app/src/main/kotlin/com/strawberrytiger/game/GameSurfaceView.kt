@@ -37,6 +37,8 @@ import com.strawberrytiger.game.rendering.StrawberryRenderer
 import com.strawberrytiger.game.rendering.TigerRenderer
 import com.strawberrytiger.game.rendering.UIRenderer
 import android.util.Log
+import androidx.core.graphics.toColorInt
+import androidx.core.graphics.withSave
 import kotlin.math.floor
 import kotlin.math.min
 import kotlin.random.Random
@@ -81,6 +83,7 @@ class GameSurfaceView(context: Context) : SurfaceView(context), SurfaceHolder.Ca
         holder.setFormat(PixelFormat.RGBA_8888)
         isFocusable = true
         keepScreenOn = true
+        contentDescription = context.getString(R.string.app_name)
         resetGame()
     }
 
@@ -295,7 +298,7 @@ class GameSurfaceView(context: Context) : SurfaceView(context), SurfaceHolder.Ca
                         x = s.x,
                         y = s.y,
                         text = "+$points",
-                        color = if (s.isGolden) Color.parseColor("#FFD700") else Color.WHITE,
+                        color = if (s.isGolden) "#FFD700".toColorInt() else Color.WHITE,
                         life = 1.0f,
                         velocityY = -80f
                     )
@@ -330,62 +333,60 @@ class GameSurfaceView(context: Context) : SurfaceView(context), SurfaceHolder.Ca
     // --- Render ---
 
     fun render(canvas: Canvas) {
-        canvas.save()
+        canvas.withSave {
+            // Clear entire physical screen first
+            drawColor(Color.BLACK)
 
-        // Clear entire physical screen first
-        canvas.drawColor(Color.BLACK)
+            // If the surface is portrait but the game needs landscape, rotate 90° clockwise
+            val isPortrait = viewHeight > viewWidth && viewWidth > 0
+            val scaleX: Float
+            val scaleY: Float
 
-        // If the surface is portrait but the game needs landscape, rotate 90° clockwise
-        val isPortrait = viewHeight > viewWidth && viewWidth > 0
-        val scaleX: Float
-        val scaleY: Float
+            if (isPortrait) {
+                translate(viewWidth.toFloat(), 0f)
+                rotate(90f)
+                // After rotation, effective dimensions are viewHeight x viewWidth
+                scaleX = viewHeight / CANVAS_WIDTH
+                scaleY = viewWidth / CANVAS_HEIGHT
+            } else {
+                scaleX = viewWidth / CANVAS_WIDTH
+                scaleY = viewHeight / CANVAS_HEIGHT
+            }
+            scale(scaleX, scaleY)
 
-        if (isPortrait) {
-            canvas.translate(viewWidth.toFloat(), 0f)
-            canvas.rotate(90f)
-            // After rotation, effective dimensions are viewHeight x viewWidth
-            scaleX = viewHeight / CANVAS_WIDTH
-            scaleY = viewWidth / CANVAS_HEIGHT
-        } else {
-            scaleX = viewWidth / CANVAS_WIDTH
-            scaleY = viewHeight / CANVAS_HEIGHT
+            if (gameState == GameState.MENU) {
+                uiRenderer.drawMenuScreen(
+                    this, backgroundRenderer, tigerRenderer,
+                    tiger, clouds, scrollOffset, frameCount, bestScore, gameState
+                )
+                return@withSave
+            }
+
+            // Draw game scene
+            backgroundRenderer.drawSky(this)
+            backgroundRenderer.drawClouds(this, clouds)
+            backgroundRenderer.drawGround(this, scrollOffset)
+
+            for (rock in rocks) {
+                rockRenderer.draw(this, rock)
+            }
+            for (berry in strawberries) {
+                strawberryRenderer.draw(this, berry)
+            }
+
+            tigerRenderer.draw(this, tiger, frameCount, gameState)
+            uiRenderer.drawScoreParticles(this, scoreParticles)
+            uiRenderer.drawScore(this, score)
+
+            if (gameState == GameState.GAME_OVER) {
+                uiRenderer.drawGameOverScreen(this, score, bestScore)
+            }
         }
-        canvas.scale(scaleX, scaleY)
-
-        if (gameState == GameState.MENU) {
-            uiRenderer.drawMenuScreen(
-                canvas, backgroundRenderer, tigerRenderer,
-                tiger, clouds, scrollOffset, frameCount, bestScore, gameState
-            )
-            canvas.restore()
-            return
-        }
-
-        // Draw game scene
-        backgroundRenderer.drawSky(canvas)
-        backgroundRenderer.drawClouds(canvas, clouds)
-        backgroundRenderer.drawGround(canvas, scrollOffset)
-
-        for (rock in rocks) {
-            rockRenderer.draw(canvas, rock)
-        }
-        for (berry in strawberries) {
-            strawberryRenderer.draw(canvas, berry)
-        }
-
-        tigerRenderer.draw(canvas, tiger, frameCount, gameState)
-        uiRenderer.drawScoreParticles(canvas, scoreParticles)
-        uiRenderer.drawScore(canvas, score)
-
-        if (gameState == GameState.GAME_OVER) {
-            uiRenderer.drawGameOverScreen(canvas, score, bestScore)
-        }
-
-        canvas.restore()
     }
 
     // --- Touch input ---
 
+    @Suppress("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) {
             handleInput()

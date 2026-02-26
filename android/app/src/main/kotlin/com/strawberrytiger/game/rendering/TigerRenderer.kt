@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
+import androidx.core.graphics.toColorInt
+import androidx.core.graphics.withSave
 import com.strawberrytiger.game.GameState
 import com.strawberrytiger.game.Tiger
 import kotlin.math.sin
@@ -16,12 +18,12 @@ class TigerRenderer {
     private val ovalRect = RectF()
 
     private fun drawRotatedOval(canvas: Canvas, cx: Float, cy: Float, rx: Float, ry: Float, rotationRad: Float, p: Paint) {
-        canvas.save()
-        canvas.translate(cx, cy)
-        canvas.rotate(Math.toDegrees(rotationRad.toDouble()).toFloat())
-        ovalRect.set(-rx, -ry, rx, ry)
-        canvas.drawOval(ovalRect, p)
-        canvas.restore()
+        canvas.withSave {
+            translate(cx, cy)
+            rotate(Math.toDegrees(rotationRad.toDouble()).toFloat())
+            ovalRect.set(-rx, -ry, rx, ry)
+            drawOval(ovalRect, p)
+        }
     }
 
     private fun drawOvalAt(canvas: Canvas, cx: Float, cy: Float, rx: Float, ry: Float, p: Paint) {
@@ -46,7 +48,7 @@ class TigerRenderer {
         val tipWag = sin(frameCount * 0.12f) * 4f
 
         // Orange tail
-        paint.color = Color.parseColor("#FF8C00")
+        paint.color = "#FF8C00".toColorInt()
         paint.strokeWidth = 5f
         path.reset()
         path.moveTo(x + 8f, y + 20f)
@@ -54,7 +56,7 @@ class TigerRenderer {
         canvas.drawPath(path, paint)
 
         // Black rings on tail
-        paint.color = Color.parseColor("#1a1a1a")
+        paint.color = "#1a1a1a".toColorInt()
         paint.strokeWidth = 2f
         canvas.drawLine(x - 1f, y + 17.5f, x - 3f, y + 19f, paint)
         canvas.drawLine(x - 7f, y + 15f, x - 9f, y + 16.5f, paint)
@@ -62,16 +64,16 @@ class TigerRenderer {
 
         // --- Body ---
         paint.style = Paint.Style.FILL
-        paint.color = Color.parseColor("#FF8C00")
+        paint.color = "#FF8C00".toColorInt()
         drawRoundRect(canvas, x + 6f, y + 10f, 46f, 32f, 8f, paint)
 
         // White belly
-        paint.color = Color.parseColor("#FFF3E0")
+        paint.color = "#FFF3E0".toColorInt()
         drawOvalAt(canvas, x + 30f, y + 36f, 18f, 6f, paint)
 
         // Body stripes
         paint.style = Paint.Style.STROKE
-        paint.color = Color.parseColor("#1a1a1a")
+        paint.color = "#1a1a1a".toColorInt()
         paint.strokeWidth = 2.5f
         // Stripe 1
         path.reset()
@@ -97,30 +99,30 @@ class TigerRenderer {
         // --- Ears ---
         paint.style = Paint.Style.FILL
         // Left ear
-        paint.color = Color.parseColor("#FF8C00")
+        paint.color = "#FF8C00".toColorInt()
         drawRotatedOval(canvas, x + 43f, y + 3f, 5f, 6f, -0.15f, paint)
         // Right ear
         drawRotatedOval(canvas, x + 57f, y + 3f, 5f, 6f, 0.15f, paint)
 
         // Black ear backs (only top half: from PI to 2*PI)
         // We approximate by drawing a smaller oval shifted up
-        paint.color = Color.parseColor("#1a1a1a")
+        paint.color = "#1a1a1a".toColorInt()
         // Left ear back - top half
-        canvas.save()
-        canvas.translate(x + 43f, y + 1f)
-        canvas.rotate(Math.toDegrees(-0.15).toFloat())
-        canvas.clipRect(-5f, -5f, 5f, 0f)
-        ovalRect.set(-4f, -4f, 4f, 4f)
-        canvas.drawOval(ovalRect, paint)
-        canvas.restore()
+        canvas.withSave {
+            translate(x + 43f, y + 1f)
+            rotate(Math.toDegrees(-0.15).toFloat())
+            clipRect(-5f, -5f, 5f, 0f)
+            ovalRect.set(-4f, -4f, 4f, 4f)
+            drawOval(ovalRect, paint)
+        }
         // Right ear back - top half
-        canvas.save()
-        canvas.translate(x + 57f, y + 1f)
-        canvas.rotate(Math.toDegrees(0.15).toFloat())
-        canvas.clipRect(-5f, -5f, 5f, 0f)
-        ovalRect.set(-4f, -4f, 4f, 4f)
-        canvas.drawOval(ovalRect, paint)
-        canvas.restore()
+        canvas.withSave {
+            translate(x + 57f, y + 1f)
+            rotate(Math.toDegrees(0.15).toFloat())
+            clipRect(-5f, -5f, 5f, 0f)
+            ovalRect.set(-4f, -4f, 4f, 4f)
+            drawOval(ovalRect, paint)
+        }
 
         // White ear spots
         paint.color = Color.WHITE
@@ -128,21 +130,21 @@ class TigerRenderer {
         canvas.drawCircle(x + 57f, y + 1f, 2f, paint)
 
         // --- Head ---
-        paint.color = Color.parseColor("#FFA500")
+        paint.color = "#FFA500".toColorInt()
         drawOvalAt(canvas, x + 50f, y + 13f, 13f, 12f, paint)
 
         // White muzzle
-        paint.color = Color.parseColor("#FFF8E1")
+        paint.color = "#FFF8E1".toColorInt()
         drawOvalAt(canvas, x + 50f, y + 18f, 8f, 6f, paint)
 
         // White cheek patches
-        paint.color = Color.parseColor("#FFF3E0")
+        paint.color = "#FFF3E0".toColorInt()
         drawRotatedOval(canvas, x + 42f, y + 15f, 4f, 3f, -0.3f, paint)
         drawRotatedOval(canvas, x + 58f, y + 15f, 4f, 3f, 0.3f, paint)
 
         // Face stripes
         paint.style = Paint.Style.STROKE
-        paint.color = Color.parseColor("#1a1a1a")
+        paint.color = "#1a1a1a".toColorInt()
         paint.strokeWidth = 2f
         // Left face stripes
         path.reset()
@@ -170,7 +172,7 @@ class TigerRenderer {
         drawRotatedOval(canvas, x + 45f, y + 11f, 3.5f, 2.5f, -0.1f, paint)
         drawRotatedOval(canvas, x + 55f, y + 11f, 3.5f, 2.5f, 0.1f, paint)
         // Amber iris
-        paint.color = Color.parseColor("#E6A800")
+        paint.color = "#E6A800".toColorInt()
         canvas.drawCircle(x + 46f, y + 11f, 2f, paint)
         canvas.drawCircle(x + 56f, y + 11f, 2f, paint)
         // Black pupils
@@ -179,20 +181,20 @@ class TigerRenderer {
         canvas.drawCircle(x + 56f, y + 11f, 1f, paint)
 
         // --- Nose ---
-        paint.color = Color.parseColor("#D4576B")
+        paint.color = "#D4576B".toColorInt()
         drawOvalAt(canvas, x + 50f, y + 16f, 3f, 2f, paint)
         // Black half (bottom half only)
-        paint.color = Color.parseColor("#1a1a1a")
-        canvas.save()
-        canvas.translate(x + 50f, y + 15.5f)
-        canvas.clipRect(-3f, 0f, 3f, 2f)
-        ovalRect.set(-2.5f, -1.5f, 2.5f, 1.5f)
-        canvas.drawOval(ovalRect, paint)
-        canvas.restore()
+        paint.color = "#1a1a1a".toColorInt()
+        canvas.withSave {
+            translate(x + 50f, y + 15.5f)
+            clipRect(-3f, 0f, 3f, 2f)
+            ovalRect.set(-2.5f, -1.5f, 2.5f, 1.5f)
+            drawOval(ovalRect, paint)
+        }
 
         // --- Mouth ---
         paint.style = Paint.Style.STROKE
-        paint.color = Color.parseColor("#1a1a1a")
+        paint.color = "#1a1a1a".toColorInt()
         paint.strokeWidth = 1f
         canvas.drawLine(x + 50f, y + 17.5f, x + 50f, y + 19f, paint)
         // Left arc
@@ -216,7 +218,7 @@ class TigerRenderer {
         canvas.drawLine(x + 57f, y + 19f, x + 67f, y + 23f, paint)
 
         // --- Legs ---
-        paint.color = Color.parseColor("#FF8C00")
+        paint.color = "#FF8C00".toColorInt()
         paint.strokeWidth = 4f
         paint.strokeCap = Paint.Cap.ROUND
 

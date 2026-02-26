@@ -2,6 +2,7 @@ package com.strawberrytiger.game
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 
 class ScoreManager(context: Context) {
 
@@ -15,7 +16,7 @@ class ScoreManager(context: Context) {
     fun saveHighScore(score: Int) {
         val best = getHighScore()
         if (score > best) {
-            prefs.edit().putInt("strawberrytiger_best", score).apply()
+            prefs.edit { putInt("strawberrytiger_best", score) }
         }
     }
 }

@@ -1,0 +1,829 @@
+# Strawberry Tiger - Google Play Store Submission Guide
+
+This document contains all text materials needed for the Google Play Store listing, along with a detailed step-by-step tutorial for building, signing, and submitting the app.
+
+---
+
+## Store Listing Information
+
+### App Name (50 chars max)
+
+```
+Strawberry Tiger
+```
+
+(16 characters)
+
+### Short Description (80 chars max)
+
+```
+Run, jump, and collect strawberries as a cute tiger in this fun side-scrolling platformer!
+```
+
+(80 characters -- Note: if Google rejects for being over 80, use the alternative below)
+
+Alternative (shorter):
+
+```
+Run and jump as a cute tiger! Collect strawberries, dodge rocks, beat your score!
+```
+
+(81 characters -- trim to:)
+
+```
+Run and jump as a cute tiger! Collect strawberries, dodge rocks, beat your score
+```
+
+(80 characters)
+
+### Full Description (4000 chars max)
+
+```
+Strawberry Tiger is a charming side-scrolling platformer where you guide an adorable tiger through an endless landscape, collecting juicy strawberries and dodging dangerous rocks. Tap to jump, time your leaps, and chase your high score in this addictive one-touch game.
+
+GAMEPLAY
+Guide your tiger as it runs automatically through a vibrant, procedurally generated world. Tap anywhere on the screen to jump over rocks and collect floating strawberries. The longer you survive, the faster the game gets. How far can you go?
+
+UNIQUE HAND-DRAWN STYLE
+Every visual in Strawberry Tiger is drawn programmatically -- the tiger, the strawberries, the rocks, the rolling hills, and the sky are all rendered in real time using code. There are no image assets or sprites. The result is a clean, colorful, and uniquely charming art style that looks crisp on any screen size, from phones to tablets.
+
+FEATURES
+- One-touch controls: tap to jump -- simple to learn, hard to master
+- Procedurally drawn graphics: all visuals rendered in real time with code
+- Synthesized sound effects: jump sounds, collection chimes, and hit effects
+- Original background music to keep you in the zone
+- High score tracking so you can always try to beat your best
+- Landscape orientation optimized for comfortable play
+- Works on phones and tablets of all sizes
+- Smooth 60fps performance on all supported devices
+
+BUILT WITH CARE
+Strawberry Tiger is built natively with Kotlin for Android. It uses SurfaceView and Canvas for rendering, delivering smooth frame rates without relying on heavy game engines. The entire game is lightweight and efficient.
+
+PRIVACY FIRST
+- No ads -- ever
+- No in-app purchases
+- No data collection of any kind
+- No analytics or tracking SDKs
+- No account or login required
+- No internet connection required -- plays fully offline
+- No permissions requested
+
+Strawberry Tiger is a pure, simple, fun game. No tricks, no monetization schemes, no distractions. Just you, a tiger, and a field full of strawberries.
+
+Download now and start your run!
+```
+
+(1,537 characters)
+
+### Category
+
+**Primary:** Games > Action
+**Secondary (optional):** Games > Casual
+
+### Content Rating
+
+When filling out the IARC content rating questionnaire, answer as follows:
+
+| Question | Answer |
+|----------|--------|
+| Violence | No |
+| Sexual content | No |
+| Language | No |
+| Controlled substances | No |
+| User interaction (chat, social) | No |
+| Users can share location | No |
+| Users can purchase digital goods | No |
+| Users can share personal info | No |
+| Ads present | No |
+| Gambling | No |
+
+**Expected ratings:**
+- IARC: Rated for Everyone
+- PEGI: 3
+- ESRB: Everyone (E)
+- USK: 0
+- ClassInd: L (Free for all ages)
+- GRAC: All
+
+### Tags
+
+Select the following tags in Google Play Console (choose from the available list):
+
+- Platformer
+- Side-scroller
+- Endless runner
+- Casual
+- Single player
+- Offline
+- Stylized
+- 2D
+- Action
+
+---
+
+## Graphics Assets
+
+### App Icon (512 x 512)
+
+- **Format:** 512 x 512 PNG, 32-bit color, no alpha/transparency
+- **Source location:** The app uses adaptive icons defined in:
+  - `android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml`
+  - Foreground: `android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png`
+  - Composed icon: `android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png`
+- **For Play Store:** You need a single 512x512 PNG with no transparency. You can:
+  1. Use Android Studio: right-click `res` > New > Image Asset to export a 512x512 version
+  2. Or manually compose the foreground on a white background at 512x512
+  3. Or use the web-based tool at https://icon.kitchen/ to generate one from the foreground asset
+
+### Feature Graphic (1024 x 500) -- REQUIRED
+
+- **Format:** 1024 x 500 PNG or JPEG
+- **This asset does not exist yet.** You need to create it.
+- **Suggestions for creating:**
+  1. Take a landscape gameplay screenshot and resize/crop to 1024x500
+  2. Create a promotional image with the game title overlaid on gameplay art
+  3. Use a design tool (Figma, Canva, GIMP) to compose a banner showing the tiger character, strawberries, and the game title
+  4. Programmatically render one by modifying the game's Canvas rendering code to output a 1024x500 bitmap
+
+### Screenshots
+
+Screenshots should be placed in `android/screenshot/` (create this directory if it does not exist).
+
+**Required screenshots per device type:**
+
+| File | Description | Device Type |
+|------|-------------|-------------|
+| `phone_menu.png` | Menu/title screen | Phone |
+| `phone_gameplay.png` | Active gameplay | Phone |
+| `phone_gameover.png` | Game over screen | Phone |
+| `pad_menu.png` | Menu/title screen | Tablet |
+| `pad_gameplay.png` | Active gameplay | Tablet |
+| `pad_gameover.png` | Game over screen | Tablet |
+
+**Play Store screenshot requirements:**
+- Minimum 2 screenshots per device type, maximum 8
+- Minimum dimension: 320px on shortest side
+- Maximum dimension: 3840px on longest side
+- Format: JPEG or 24-bit PNG (no alpha transparency)
+- Phone screenshots: 16:9 aspect ratio recommended (e.g., 1920x1080 or 2560x1440)
+- 7-inch tablet screenshots: 16:10 aspect ratio (e.g., 1920x1200)
+- 10-inch tablet screenshots: 16:10 aspect ratio (e.g., 2560x1600)
+
+**How to capture screenshots:**
+- Use Android Studio's emulator or a physical device
+- In the emulator: click the camera icon in the toolbar, or press Ctrl+S (Cmd+S on Mac)
+- Via ADB: `adb exec-out screencap -p > screenshot.png`
+- Ensure the status bar and navigation bar are hidden for cleaner screenshots
+
+### Video (Optional)
+
+- Not included.
+- If desired, you can add a YouTube URL showing gameplay (30 seconds to 2 minutes recommended).
+
+---
+
+## Privacy & Data Safety
+
+### Privacy Policy URL
+
+```
+https://alvin-game.github.io/StrawberryTiger/privacy
+```
+
+This URL is **required** for all apps on Google Play, even if the app collects no data.
+
+### Data Safety Questionnaire Answers
+
+When completing the Data Safety form in Google Play Console, answer as follows:
+
+**Overview:**
+
+| Question | Answer |
+|----------|--------|
+| Does your app collect or share any of the required user data types? | No |
+| Does your app collect any user data? | No |
+| Does your app share any user data with third parties? | No |
+
+**Data collection and security:**
+
+| Question | Answer |
+|----------|--------|
+| Is all collected user data encrypted in transit? | Not applicable (no network calls) |
+| Do you provide a way for users to request that their data is deleted? | Not applicable (no data collected) |
+
+**Data types (all should be unchecked / "No"):**
+- Location: No
+- Personal info: No
+- Financial info: No
+- Health and fitness: No
+- Messages: No
+- Photos and videos: No
+- Audio files: No
+- Files and docs: No
+- Calendar: No
+- Contacts: No
+- App activity: No
+- Web browsing: No
+- App info and performance: No
+- Device or other IDs: No
+
+**SDKs and libraries:**
+- No ads SDK (no AdMob, no Unity Ads, etc.)
+- No analytics SDK (no Firebase Analytics, no Google Analytics)
+- No crash reporting SDK (no Crashlytics, no Sentry)
+- No social SDK
+- No account/authentication SDK
+
+---
+
+## Pricing & Distribution
+
+| Setting | Value |
+|---------|-------|
+| Price | Free |
+| In-app purchases | No |
+| Ads | No (select "No" when asked if your app contains ads) |
+| Countries | All available countries |
+| Android Wear | No |
+| Android TV | No |
+| Android Auto | No |
+| Daydream | No |
+| Google Play for Education | No |
+
+---
+
+## Detailed Submission Tutorial
+
+### Step 1: Prerequisites
+
+Before you begin, make sure you have the following:
+
+1. **Google Play Developer Account**
+   - Go to https://play.google.com/console/signup
+   - Sign in with a Google account
+   - Pay the one-time $25 USD registration fee
+   - Complete identity verification (may take 1-3 business days)
+   - You must verify your identity before you can publish apps
+
+2. **Java Development Kit (JDK) 17 or later**
+   - Required for building and signing the app
+   - Verify installation:
+     ```bash
+     java -version
+     ```
+   - On macOS with Homebrew: `brew install openjdk@17`
+   - Set JAVA_HOME if not already set:
+     ```bash
+     export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+     ```
+
+3. **Android SDK**
+   - Install via Android Studio or standalone command-line tools
+   - Required SDK components: Build-Tools 36, Platform 36 (matching compileSdk in build.gradle.kts)
+   - Set ANDROID_HOME:
+     ```bash
+     export ANDROID_HOME=$HOME/Library/Android/sdk
+     ```
+
+4. **Android Studio** (recommended but not strictly required)
+   - Helpful for generating icons, managing signing configs, and testing
+
+5. **A release signing key** (created in Step 2 below)
+
+---
+
+### Step 2: Create a Release Signing Key
+
+Every Android app published on Google Play must be signed with a private key. This key identifies you as the developer and must be kept safe -- if you lose it and are not using Play App Signing, you cannot update your app.
+
+**Generate a keystore using `keytool`:**
+
+```bash
+keytool -genkeypair \
+  -v \
+  -keystore strawberrytiger-release.keystore \
+  -alias strawberrytiger \
+  -keyalg RSA \
+  -keysize 2048 \
+  -validity 10000 \
+  -storepass YOUR_STORE_PASSWORD \
+  -keypass YOUR_KEY_PASSWORD \
+  -dname "CN=Your Name, OU=, O=, L=Your City, ST=Your State, C=US"
+```
+
+Replace the following:
+- `YOUR_STORE_PASSWORD` -- password for the keystore file (remember this!)
+- `YOUR_KEY_PASSWORD` -- password for the key within the keystore (can be the same)
+- The `-dname` values with your actual information
+
+**Important:**
+- Store the keystore file in a safe location outside version control
+- Never commit the keystore or passwords to Git
+- Back up the keystore file -- losing it means you cannot push updates to your app
+- Consider using a password manager to store the passwords
+
+**Move the keystore to a safe location:**
+
+```bash
+mkdir -p ~/.android-keystores
+mv strawberrytiger-release.keystore ~/.android-keystores/
+```
+
+---
+
+### Step 3: Configure Release Signing in build.gradle.kts
+
+Edit `android/app/build.gradle.kts` to add signing configuration for release builds.
+
+**Option A: Using a local properties file (recommended -- keeps secrets out of build files)**
+
+1. Create or edit `android/local.properties` (this file should already be in `.gitignore`):
+
+```properties
+RELEASE_STORE_FILE=/Users/YOUR_USERNAME/.android-keystores/strawberrytiger-release.keystore
+RELEASE_STORE_PASSWORD=YOUR_STORE_PASSWORD
+RELEASE_KEY_ALIAS=strawberrytiger
+RELEASE_KEY_PASSWORD=YOUR_KEY_PASSWORD
+```
+
+2. Update `android/app/build.gradle.kts`:
+
+```kotlin
+import java.util.Properties
+
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+}
+
+// Load local properties
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
+
+android {
+    namespace = "com.strawberrytiger.game"
+    compileSdk = 36
+
+    defaultConfig {
+        applicationId = "com.strawberrytiger.game"
+        minSdk = 24
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    signingConfigs {
+        create("release") {
+            storeFile = file(localProperties.getProperty("RELEASE_STORE_FILE", ""))
+            storePassword = localProperties.getProperty("RELEASE_STORE_PASSWORD", "")
+            keyAlias = localProperties.getProperty("RELEASE_KEY_ALIAS", "")
+            keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD", "")
+        }
+    }
+
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            signingConfig = signingConfigs.getByName("release")
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
+dependencies {
+    implementation("androidx.core:core-ktx:1.17.0")
+    implementation("androidx.appcompat:appcompat:1.7.1")
+}
+```
+
+**Option B: Using environment variables**
+
+If you prefer environment variables instead of `local.properties`:
+
+```kotlin
+signingConfigs {
+    create("release") {
+        storeFile = file(System.getenv("RELEASE_STORE_FILE") ?: "")
+        storePassword = System.getenv("RELEASE_STORE_PASSWORD") ?: ""
+        keyAlias = System.getenv("RELEASE_KEY_ALIAS") ?: ""
+        keyPassword = System.getenv("RELEASE_KEY_PASSWORD") ?: ""
+    }
+}
+```
+
+Then export the variables before building:
+
+```bash
+export RELEASE_STORE_FILE=$HOME/.android-keystores/strawberrytiger-release.keystore
+export RELEASE_STORE_PASSWORD=YOUR_STORE_PASSWORD
+export RELEASE_KEY_ALIAS=strawberrytiger
+export RELEASE_KEY_PASSWORD=YOUR_KEY_PASSWORD
+```
+
+**Create a ProGuard rules file** (if one does not exist yet):
+
+```bash
+touch android/app/proguard-rules.pro
+```
+
+Add the following content to `android/app/proguard-rules.pro`:
+
+```proguard
+# Strawberry Tiger ProGuard Rules
+# No special rules needed -- the game uses standard Android APIs only.
+# Add rules here if you encounter issues with the release build.
+
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
+```
+
+---
+
+### Step 4: Build the Signed Release AAB (Android App Bundle)
+
+Google Play requires AAB format (not APK) for new apps. AAB allows Google Play to generate optimized APKs for each device configuration.
+
+**Build the signed release AAB:**
+
+```bash
+cd /Users/alvinsong/src/StrawberryTiger/android
+
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+export ANDROID_HOME=$HOME/Library/Android/sdk
+
+./gradlew clean bundleRelease
+```
+
+The output AAB file will be at:
+
+```
+android/app/build/outputs/bundle/release/app-release.aab
+```
+
+**Verify the AAB is signed:**
+
+```bash
+jarsigner -verify -verbose -certs app/build/outputs/bundle/release/app-release.aab
+```
+
+**Build a signed release APK (optional, for direct distribution or testing):**
+
+```bash
+./gradlew clean assembleRelease
+```
+
+The output APK will be at:
+
+```
+android/app/build/outputs/apk/release/app-release.apk
+```
+
+**Verify the APK is signed:**
+
+```bash
+$ANDROID_HOME/build-tools/36.0.0/apksigner verify --verbose app/build/outputs/apk/release/app-release.apk
+```
+
+---
+
+### Step 5: Create the App in Google Play Console
+
+1. Go to https://play.google.com/console/
+2. Click **"Create app"** in the top right
+3. Fill in the app details:
+   - **App name:** `Strawberry Tiger`
+   - **Default language:** English (United States) -- en-US
+   - **App or game:** Game
+   - **Free or paid:** Free
+4. Check the **Developer Program Policies** and **US export laws** checkboxes
+5. Click **"Create app"**
+
+---
+
+### Step 6: Set Up the Store Listing
+
+Navigate to **Grow > Store presence > Main store listing** in the left sidebar.
+
+1. **App name:** `Strawberry Tiger`
+2. **Short description:** Copy from the Store Listing Information section above
+3. **Full description:** Copy from the Store Listing Information section above
+4. **App icon:** Upload the 512x512 PNG (see Graphics Assets section)
+5. **Feature graphic:** Upload the 1024x500 image (you need to create this)
+6. **Phone screenshots:** Upload at least 2 phone screenshots (phone_menu.png, phone_gameplay.png, phone_gameover.png)
+7. **7-inch tablet screenshots:** Upload tablet screenshots (pad_menu.png, pad_gameplay.png, pad_gameover.png)
+8. **10-inch tablet screenshots:** Upload the same tablet screenshots (they work for both 7-inch and 10-inch categories)
+9. Click **"Save"**
+
+---
+
+### Step 7: Complete the Data Safety Questionnaire
+
+Navigate to **Policy > App content > Data safety** in the left sidebar.
+
+1. Click **"Start"** or **"Manage"**
+2. **"Does your app collect or share any of the required user data types?"** -- Select **No**
+3. **"Does your app collect any user data?"** -- Select **No**
+4. **"Does your app share any user data with third parties?"** -- Select **No**
+5. Review the summary -- it should show that no data is collected or shared
+6. Click **"Save"** then **"Submit"**
+
+The Data Safety section on your Play Store listing will show:
+- "No data collected"
+- "No data shared with third parties"
+
+---
+
+### Step 8: Complete the Content Rating Questionnaire
+
+Navigate to **Policy > App content > Content rating** in the left sidebar.
+
+1. Click **"Start"** or **"Manage"**
+2. Enter your email address when prompted
+3. Select category: **"Game"**
+4. Answer all questions **"No"** (the game contains no violence, sexual content, profanity, drugs, gambling, user-generated content, or data sharing)
+5. Click **"Save"** then **"Submit"**
+6. Review the ratings assigned (should be Everyone/PEGI 3/ESRB E across all regions)
+7. Click **"Apply"**
+
+---
+
+### Step 9: Complete the Target Audience and Content Section
+
+Navigate to **Policy > App content > Target audience** in the left sidebar.
+
+1. **Target age group:** Select the appropriate age groups. If the game appeals to all ages, select age groups 18 and above to avoid additional requirements for children's apps (COPPA/GDPR-K compliance)
+   - **Important:** If you select any age group under 13, you will be subject to Google's Families Policy, which has strict additional requirements. Unless you specifically intend to market to children, select only ages 13+ or 18+
+2. **"Does your app appeal to children?"** -- If you selected only adult age groups, this may not appear. If it does, answer honestly based on the game's content and marketing
+3. Click **"Save"**
+
+---
+
+### Step 10: Set Pricing and Distribution
+
+Navigate to **Monetize > Products > App pricing** (or it may already be set from app creation).
+
+1. **Price:** Free (this was set during app creation and cannot be changed to paid later)
+2. **Countries and regions:** Select **"All countries"** or choose specific countries
+3. Navigate to **Policy > App content > Ads**:
+   - **"Does your app contain ads?"** -- Select **No**
+4. Click **"Save"**
+
+---
+
+### Step 11: Fill in Additional Required Sections
+
+Check the **Dashboard** for any remaining items. Google Play Console will show a checklist of items that must be completed before you can publish. Common additional items:
+
+1. **News apps declaration** -- Select "My app is not a news app"
+2. **COVID-19 contact tracing / status apps** -- Select "No"
+3. **Government apps** -- Select "No"
+4. **Financial features** -- Select "No"
+5. **Health apps** -- Select "No"
+
+Navigate to **Policy > App content** and complete any remaining sections marked with warning icons.
+
+---
+
+### Step 12: Upload the AAB and Create a Release
+
+Google Play uses a staged rollout system with multiple testing tracks:
+
+1. **Internal testing** (up to 100 testers) -- fastest review, recommended for first upload
+2. **Closed testing** (invite-only) -- for broader beta testing
+3. **Open testing** (anyone can join) -- public beta
+4. **Production** -- full public release
+
+**Recommended approach: Start with Internal Testing, then promote to Production.**
+
+#### Upload to Internal Testing Track:
+
+1. Navigate to **Test > Internal testing** in the left sidebar
+2. Click **"Create new release"**
+3. **Play App Signing:**
+   - Google will ask you to opt into Play App Signing (recommended)
+   - This means Google manages your upload signing key and re-signs the app with a deployment key
+   - Click **"Continue"** to opt in (or opt out if you prefer to manage keys yourself)
+4. **Upload the AAB:**
+   - Click **"Upload"** and select `app/build/outputs/bundle/release/app-release.aab`
+   - Wait for the upload and processing to complete
+   - Google will validate the AAB and show any warnings or errors
+5. **Release name:** `1.0 (1)` (or leave the default)
+6. **Release notes:** Write release notes for this version:
+   ```
+   Initial release of Strawberry Tiger!
+   - Side-scrolling platformer gameplay
+   - Collect strawberries and avoid rocks
+   - Procedurally drawn graphics
+   - Synthesized sound effects and background music
+   - High score tracking
+   ```
+7. Click **"Review release"**
+8. Review the summary and click **"Start rollout to Internal testing"**
+
+#### Set Up Internal Testers:
+
+1. Navigate to **Test > Internal testing > Testers** tab
+2. Create a new email list or select an existing one
+3. Add tester email addresses (these must be Google accounts)
+4. Testers will receive a link to install the app from the Play Store
+
+#### Promote to Production:
+
+Once you are satisfied with internal testing:
+
+1. Navigate to **Test > Internal testing**
+2. Find the release and click **"Promote release"** > **"Production"**
+3. Or navigate to **Production** and create a new release, uploading the same AAB
+4. Click **"Review release"**
+5. Review and fix any warnings or errors
+6. Click **"Start rollout to Production"**
+7. Choose rollout percentage (start with 100% unless you want a staged rollout)
+
+---
+
+### Step 13: Submit for Review
+
+After clicking "Start rollout to Production":
+
+1. The app status will change to **"In review"**
+2. Google's review process typically takes:
+   - **New apps:** 1-7 days (sometimes longer for new developer accounts)
+   - **Updates:** Usually 1-3 days
+   - **First-time developers:** May take up to 14 days due to additional scrutiny
+3. You will receive an email notification when the review is complete
+4. If approved, the app status changes to **"Published"** and it appears on the Play Store
+5. If rejected, you will receive an email explaining the reason (see next section)
+
+---
+
+### Step 14: Common Rejection Reasons and How to Avoid Them
+
+#### 1. Missing Privacy Policy
+
+**Problem:** All apps must have a valid, accessible privacy policy URL.
+**Solution:** Ensure `https://alvin-game.github.io/StrawberryTiger/privacy` is live and accessible. The page must clearly state what data is (or is not) collected.
+
+#### 2. Metadata Policy Violation
+
+**Problem:** Store listing contains misleading descriptions, excessive keywords, or special characters.
+**Solution:**
+- Do not use ALL CAPS excessively
+- Do not stuff keywords unnaturally
+- Do not make false claims about the app
+- Do not mention other apps or brands
+- Do not use emojis excessively (a few are okay, but Google sometimes flags them)
+
+#### 3. Broken Functionality / Crashes
+
+**Problem:** The app crashes during review.
+**Solution:**
+- Test thoroughly on multiple screen sizes and API levels
+- Test both phone and tablet configurations
+- Test the entire flow: splash screen, menu, gameplay, game over, restart
+- Use `./gradlew lint` to check for common issues
+- Test the signed release build (not just the debug build)
+
+#### 4. Incorrect Content Rating
+
+**Problem:** The app's content does not match the declared rating.
+**Solution:** Answer the IARC questionnaire honestly. For Strawberry Tiger, all answers should be "No" since there is no objectionable content.
+
+#### 5. Ads Declaration Mismatch
+
+**Problem:** Declaring "no ads" but having ad SDK code in the app.
+**Solution:** Ensure no ad SDKs are included in `build.gradle.kts` dependencies. Strawberry Tiger has no ad dependencies, so this should not be an issue.
+
+#### 6. Target API Level Too Low
+
+**Problem:** Google requires targeting a recent API level.
+**Solution:** The app targets API 36 (compileSdk = 36, targetSdk = 36), which exceeds the current requirement. This is fine.
+
+#### 7. Missing or Low-Quality Screenshots
+
+**Problem:** Screenshots are blurry, wrong size, or do not accurately represent the app.
+**Solution:**
+- Ensure screenshots show actual app content
+- Use the correct dimensions (see screenshot requirements above)
+- Include at least 2 screenshots for phones
+- Tablet screenshots are strongly recommended
+
+#### 8. App Does Not Provide Enough Functionality
+
+**Problem:** Google may reject very simple apps that seem like spam.
+**Solution:** Strawberry Tiger has substantial gameplay with procedural graphics, sound, scoring, and multiple screens. This should not be an issue, but ensure the store listing description clearly conveys the app's value.
+
+#### 9. Impersonation
+
+**Problem:** App name, icon, or description too closely resembles another app.
+**Solution:** "Strawberry Tiger" is a unique name. Ensure the icon and branding are original.
+
+#### 10. Play App Signing Issues
+
+**Problem:** Upload key does not match or signing is misconfigured.
+**Solution:** If you opted into Play App Signing, use the upload key to sign your AAB. The upload key is the one you created with `keytool`. Google will re-sign with the deployment key. If you get signing errors, verify your keystore configuration in `build.gradle.kts`.
+
+---
+
+## Quick Reference: Build Commands
+
+```bash
+# Navigate to the Android project
+cd /Users/alvinsong/src/StrawberryTiger/android
+
+# Set environment variables
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+export ANDROID_HOME=$HOME/Library/Android/sdk
+
+# Clean the project
+./gradlew clean
+
+# Build signed release AAB (for Google Play upload)
+./gradlew bundleRelease
+
+# Build signed release APK (for direct distribution)
+./gradlew assembleRelease
+
+# Run lint checks before submission
+./gradlew lint
+
+# Verify AAB signing
+jarsigner -verify -verbose -certs app/build/outputs/bundle/release/app-release.aab
+
+# Verify APK signing
+$ANDROID_HOME/build-tools/36.0.0/apksigner verify --verbose app/build/outputs/apk/release/app-release.apk
+
+# Generate a release keystore
+keytool -genkeypair \
+  -v \
+  -keystore strawberrytiger-release.keystore \
+  -alias strawberrytiger \
+  -keyalg RSA \
+  -keysize 2048 \
+  -validity 10000
+```
+
+---
+
+## Checklist Before Submission
+
+Use this checklist to verify everything is in order before submitting:
+
+- [ ] Google Play Developer account is verified and active
+- [ ] Release keystore created and backed up securely
+- [ ] Signing config added to `build.gradle.kts`
+- [ ] ProGuard rules file exists (even if empty)
+- [ ] Release AAB builds successfully with `./gradlew bundleRelease`
+- [ ] Release build tested on a physical device or emulator (install with `adb install`)
+- [ ] App icon exported as 512x512 PNG (no alpha)
+- [ ] Feature graphic created at 1024x500
+- [ ] At least 2 phone screenshots captured and ready
+- [ ] Tablet screenshots captured (recommended)
+- [ ] Privacy policy page is live at the URL
+- [ ] Store listing text is written and reviewed
+- [ ] App created in Google Play Console
+- [ ] Store listing completed in Console
+- [ ] Data Safety questionnaire completed
+- [ ] Content Rating questionnaire completed
+- [ ] Target audience section completed
+- [ ] Ads declaration set to "No"
+- [ ] AAB uploaded to internal testing track
+- [ ] Internal testing verified
+- [ ] Release promoted to Production
+- [ ] Review submitted
+
+---
+
+## File Locations Reference
+
+| Asset | Path |
+|-------|------|
+| App module build config | `android/app/build.gradle.kts` |
+| Project build config | `android/build.gradle.kts` |
+| Gradle wrapper | `android/gradle/wrapper/gradle-wrapper.properties` |
+| Android Manifest | `android/app/src/main/AndroidManifest.xml` |
+| App icon (adaptive) | `android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml` |
+| App icon foreground (xxxhdpi) | `android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png` |
+| App icon composed (xxxhdpi) | `android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png` |
+| Game source code | `android/app/src/main/kotlin/com/strawberrytiger/game/` |
+| Renderers | `android/app/src/main/kotlin/com/strawberrytiger/game/rendering/` |
+| Screenshots (to create) | `android/screenshot/` |
+| Release AAB output | `android/app/build/outputs/bundle/release/app-release.aab` |
+| Release APK output | `android/app/build/outputs/apk/release/app-release.apk` |
+| Privacy policy (web) | `https://alvin-game.github.io/StrawberryTiger/privacy` |

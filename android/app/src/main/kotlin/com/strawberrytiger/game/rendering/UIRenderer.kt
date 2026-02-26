@@ -4,6 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
+import androidx.core.graphics.toColorInt
 import com.strawberrytiger.game.GameConstants.CANVAS_HEIGHT
 import com.strawberrytiger.game.GameConstants.CANVAS_WIDTH
 import com.strawberrytiger.game.ScoreParticle
@@ -83,14 +84,14 @@ class UIRenderer {
         textPaint.alpha = 255
         canvas.drawText("STRAWBERRY TIGER", CANVAS_WIDTH / 2f + 2f, 162f, textPaint)
         // Red title
-        textPaint.color = Color.parseColor("#C62828")
+        textPaint.color = "#C62828".toColorInt()
         canvas.drawText("STRAWBERRY TIGER", CANVAS_WIDTH / 2f, 160f, textPaint)
 
         // Best score
         if (bestScore > 0) {
             textPaint.typeface = Typeface.DEFAULT
             textPaint.textSize = 20f
-            textPaint.color = Color.parseColor("#555555")
+            textPaint.color = "#555555".toColorInt()
             canvas.drawText("Best: $bestScore", CANVAS_WIDTH / 2f, 195f, textPaint)
         }
 
@@ -98,14 +99,14 @@ class UIRenderer {
         val pulse = 0.5f + 0.5f * sin(System.currentTimeMillis() * 0.003f)
         textPaint.typeface = Typeface.DEFAULT
         textPaint.textSize = 24f
-        textPaint.color = Color.parseColor("#333333")
+        textPaint.color = "#333333".toColorInt()
         textPaint.alpha = ((0.5f + pulse * 0.5f) * 255).toInt()
         canvas.drawText("Click to Jump", CANVAS_WIDTH / 2f, 240f, textPaint)
         textPaint.alpha = 255
 
         // Footer credit
         textPaint.textSize = 13f
-        textPaint.color = Color.parseColor("#777777")
+        textPaint.color = "#777777".toColorInt()
         canvas.drawText(
             "Designed and Created by Jiashi, Powered by Claude Code",
             CANVAS_WIDTH / 2f,
@@ -125,7 +126,7 @@ class UIRenderer {
         // Game Over text
         textPaint.typeface = Typeface.DEFAULT_BOLD
         textPaint.textSize = 44f
-        textPaint.color = Color.parseColor("#FF2D55")
+        textPaint.color = "#FF2D55".toColorInt()
         textPaint.alpha = 255
         canvas.drawText("GAME OVER", CANVAS_WIDTH / 2f, 160f, textPaint)
 
@@ -137,7 +138,7 @@ class UIRenderer {
         // Best
         textPaint.typeface = Typeface.DEFAULT
         textPaint.textSize = 22f
-        textPaint.color = Color.parseColor("#FFD700")
+        textPaint.color = "#FFD700".toColorInt()
         canvas.drawText("Best: $bestScore", CANVAS_WIDTH / 2f, 245f, textPaint)
 
         // Tap to restart (pulsing)

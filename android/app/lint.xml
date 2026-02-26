@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- We intentionally use a custom splash screen for branding -->
+    <issue id="CustomSplashScreen" severity="ignore" />
+    <!-- Landscape orientation is intentional for this game -->
+    <issue id="DiscouragedApi" severity="ignore" />
+    <!-- Fallback mipmap PNGs are for pre-API 26; adaptive icon handles modern devices -->
+    <issue id="IconLauncherShape" severity="ignore" />
+    <!-- Icon density sizes are correct for our generated assets -->
+    <issue id="IconDipSize" severity="ignore" />
+</lint>
