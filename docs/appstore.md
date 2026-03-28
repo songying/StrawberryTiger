@@ -208,8 +208,9 @@ Provide your personal email address and phone number. Apple may contact you if t
 - **Bundle Identifier:** `com.strawberrytiger.game`
 - **SKU:** `strawberrytiger001` (or any unique identifier you choose)
 - **Supported Devices:** iPhone and iPad
-- **Orientation:** Landscape only
-- **Minimum iOS Version:** Set this in your Xcode project (iOS 15.0 or later recommended)
+- **Orientation:** Landscape only (both Landscape Left and Landscape Right)
+- **Minimum iOS Version:** iOS 15.0
+- **Export Compliance:** `ITSAppUsesNonExemptEncryption` is set to `NO` in Info.plist (the app does not use any encryption). This avoids the export compliance prompt on each TestFlight/App Store upload.
 
 ---
 
@@ -383,7 +384,7 @@ Before archiving, verify your Xcode project settings.
    - **Devices:** iPhone and iPad (Universal).
 
 5. Go to the **Signing & Capabilities** tab:
-   - **Team:** Select your Apple Developer team.
+   - **Team:** Select your Apple Developer team. (Note: `DEVELOPMENT_TEAM` in `ios/project.yml` is left empty -- you must set it to your Team ID or select it in Xcode after generating the project with `xcodegen generate`.)
    - **Signing Certificate:** Ensure "Automatically manage signing" is checked. Xcode will create the necessary provisioning profiles.
    - If you see any errors here, make sure your Apple Developer account is properly set up in Xcode > Settings > Accounts.
 
